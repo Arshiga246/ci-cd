@@ -1,4 +1,3 @@
-sh 'docker push arshiga246/flaskapp:$BUILD_NUMBER'
 pipeline {
     agent any 
     environment {
