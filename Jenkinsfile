@@ -26,17 +26,18 @@ pipeline {
         }
         stage('Deploy to Staging') {
             steps {
-                // Pull the latest image from Docker Hub
+        // Pull the latest image from Docker Hub
                 sh 'docker pull arshiga246/flaskapp:$BUILD_NUMBER'
 
-                // Stop and remove any existing containers
+        // Stop and remove any existing containers
                 sh 'docker stop myapp-container || true'
                 sh 'docker rm myapp-container || true'
+ 
+        // Run the new container with the latest image
+               sh 'docker run -d --name myapp-container -p 8000:8000 arshiga246/flaskapp:$BUILD_NUMBER'
+         }
+     }
 
-                // Run the new container with the latest image
-                sh 'docker run -d --name myapp-container -p 8000:8000 arshiga246.com/flaskapp:$BUILD_NUMBER'
-            }
-        }
     }
     post {
         always {
